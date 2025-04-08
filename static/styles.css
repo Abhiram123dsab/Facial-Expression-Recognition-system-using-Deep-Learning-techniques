@@ -1,0 +1,185 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+#canvas {
+    max-width: 100%;
+    background-color: #f8f9fa;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#chartContainer {
+    margin-top: 20px;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border: none;
+}
+
+.card-header {
+    background-color: #4a6fdc;
+    color: white;
+    border-radius: 10px 10px 0 0 !important;
+    padding: 12px 20px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+h1 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.lead {
+    color: #7f8c8d;
+}
+
+#canvas {
+    max-width: 100%;
+    background-color: #f1f1f1;
+}
+
+#expressionResult {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#confidenceResult {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #4a6fdc;
+    border-color: #4a6fdc;
+}
+
+.btn-primary:hover {
+    background-color: #3d5cba;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+.emotion-badge {
+    transition: all 0.2s ease;
+}
+
+.emotion-badge:hover {
+    transform: scale(1.05);
+}
+
+
+/* Complete emotion colors */
+
+.emotion-fear {
+    background-color: #9b59b6;
+}
+
+.emotion-surprise {
+    background-color: #e67e22;
+}
+
+.emotion-neutral {
+    background-color: #95a5a6;
+}
+
+.emotion-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.emotion-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.emotion-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.emotion-angry {
+    background-color: #e74c3c;
+}
+
+.emotion-disgust {
+    background-color: #8e44ad;
+}
+
+.emotion-fear {
+    background-color: #9b59b6;
+}
+
+.emotion-happy {
+    background-color: #f1c40f;
+}
+
+.emotion-neutral {
+    background-color: #95a5a6;
+}
+
+.emotion-sad {
+    background-color: #3498db;
+}
+
+.emotion-surprise {
+    background-color: #e67e22;
+}
+
+.face-box {
+    position: absolute;
+    border: 3px solid #4a6fdc;
+    border-radius: 5px;
+}
+
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(74, 111, 220, 0.3);
+    border-radius: 50%;
+    border-top-color: #4a6fdc;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    .lead {
+        font-size: 16px;
+    }
+    #expressionResult {
+        font-size: 20px;
+    }
+}
