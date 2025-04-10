@@ -51,6 +51,10 @@ def preprocess_image(image):
 def home():
     return render_template('index.html')
 
+@app.route('/model')
+def model_architecture():
+    return render_template('model.html')
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:

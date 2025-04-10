@@ -1,0 +1,396 @@
+/* Model Architecture Page Styles */
+
+
+/* General Styles */
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-image: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+}
+
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #4a6fdc 0%, #3a5bbf 100%) !important;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Card Styles */
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #4a6fdc;
+    color: white;
+    border-radius: 10px 10px 0 0 !important;
+    padding: 15px 20px;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+
+/* Model Summary Styles */
+
+.model-summary {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.model-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.model-info h6 {
+    color: #4a6fdc;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+
+/* Model Metrics Cards */
+
+.metric-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 4px solid #4a6fdc;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.metric-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.metric-label {
+    font-size: 14px;
+    color: #7f8c8d;
+    font-weight: 500;
+}
+
+
+/* Architecture Visualization */
+
+.architecture-container {
+    overflow-x: auto;
+    padding: 20px 0;
+    position: relative;
+}
+
+.architecture-visualization {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 0;
+    transition: transform 0.3s ease;
+}
+
+
+/* Layer Legend */
+
+.layer-legend {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 2px solid;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.legend-item:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Zoom Controls */
+
+.btn-group .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-group .btn i {
+    font-size: 14px;
+}
+
+
+/* Layer Visualization */
+
+.layer-box {
+    border: 2px solid #4a6fdc;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 0 15px;
+    min-width: 130px;
+    text-align: center;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.layer-box:hover {
+    transform: scale(1.08);
+    z-index: 10;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.layer-box h6 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #2c3e50;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.layer-box p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: #7f8c8d;
+    line-height: 1.4;
+}
+
+.layer-connection {
+    height: 3px;
+    background: linear-gradient(to right, #4a6fdc, #3498db);
+    flex-grow: 1;
+    margin: 0 -5px;
+    position: relative;
+    animation: pulse-connection 2s infinite;
+}
+
+@keyframes pulse-connection {
+    0% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+.layer-type-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #4a6fdc;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Table Styles */
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: #f1f5fd;
+    color: #4a6fdc;
+    font-weight: 600;
+    border-bottom: 2px solid #4a6fdc;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+
+/* Animation for loading */
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+
+
+/* Confusion Matrix Styles */
+
+.confusion-matrix-title {
+    margin-bottom: 15px;
+}
+
+.confusion-matrix-title p {
+    color: #555;
+    font-size: 14px;
+}
+
+.confusion-matrix-legend {
+    margin-top: 15px;
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.legend-text {
+    font-size: 12px;
+    color: #555;
+}
+
+
+/* Enhanced Card Styles */
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #4a6fdc 0%, #3a5bbf 100%);
+    border-bottom: none;
+    padding: 15px 20px;
+}
+
+.card-header h5 {
+    margin: 0;
+    font-weight: 600;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Chart Animations */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+canvas {
+    animation: fadeIn 1s ease-out;
+}
+
+
+/* Block indicator */
+
+.block-indicator {
+    position: absolute;
+    top: -8px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: bold;
+    z-index: 5;
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    height: 20px;
+    width: 100%;
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 768px) {
+    .model-info {
+        min-width: 100%;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    .lead {
+        font-size: 16px;
+    }
+}
