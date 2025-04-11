@@ -379,210 +379,65 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function createConfusionMatrixChart() {
-        const ctx = document.getElementById('confusion-matrix-chart').getContext('2d');
-        
-        // Sample confusion matrix data - more realistic values
-        const labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral'];
-        const data = [
-            [0.82, 0.02, 0.05, 0.01, 0.06, 0.01, 0.03],
-            [0.05, 0.76, 0.07, 0.01, 0.05, 0.03, 0.03],
-            [0.08, 0.03, 0.70, 0.02, 0.09, 0.04, 0.04],
-            [0.01, 0.01, 0.02, 0.90, 0.01, 0.02, 0.03],
-            [0.06, 0.02, 0.08, 0.02, 0.75, 0.01, 0.06],
-            [0.02, 0.02, 0.05, 0.03, 0.01, 0.84, 0.03],
-            [0.04, 0.01, 0.04, 0.05, 0.07, 0.02, 0.77]
-        ];
-        
-        // Define emotion-specific colors for better visualization
-        const emotionColors = {
-            'Angry': '#e74c3c',
-            'Disgust': '#8e44ad',
-            'Fear': '#9b59b6',
-            'Happy': '#f1c40f',
-            'Sad': '#3498db',
-            'Surprise': '#e67e22',
-            'Neutral': '#95a5a6'
-        };
-        
-        // Add a title and description above the chart
-        const chartContainer = ctx.canvas.parentNode;
-        const titleElement = document.createElement('div');
-        titleElement.className = 'confusion-matrix-title';
-        titleElement.innerHTML = `
-            <p class="text-center mb-3">This confusion matrix shows the model's prediction accuracy across different emotions.</p>
-            <p class="text-center mb-3"><small>Diagonal cells represent correct predictions, while off-diagonal cells show misclassifications.</small></p>
-        `;
-        chartContainer.insertBefore(titleElement, ctx.canvas);
-        
-        // Prepare data for heatmap
-        const heatmapData = [];
-        for (let i = 0; i < labels.length; i++) {
-            for (let j = 0; j < labels.length; j++) {
-                heatmapData.push({
-                    x: labels[j],
-                    y: labels[i],
-                    v: data[i][j]
+                const ctx = document.getElementById('confusionMatrixChart').getContext('2d');
+                const mockData = {
+                    labels: ['Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise'],
+                    datasets: [{
+                        label: 'Confusion Matrix',
+                        data: [10, 5, 3, 20, 15, 7, 8],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                };
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: mockData,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
                 });
             }
-        }
-        
-        // Create the confusion matrix chart using a standard heatmap approach
-        new Chart(ctx, {
-            type: 'scatter',
-            data: {
-                datasets: [{
-                    label: 'Confusion Matrix',
-                    data: heatmapData.map(item => ({
-                        x: item.x,
-                        y: item.y,
-                        value: item.v
-                    })),
-                    backgroundColor: function(context) {
-                        if (!context.raw) return 'rgba(0,0,0,0.1)';
-                        
-                        const value = context.raw.value;
-                        const x = context.raw.x; // Predicted label
-                        const y = context.raw.y; // True label
-                        
-                        // Use different color scheme for diagonal (correct predictions) vs off-diagonal
-                        if (x === y) {
-                            // Correct predictions - use emotion-specific color with opacity based on value
-                            const baseColor = emotionColors[x] || '#3498db';
-                            return baseColor + Math.round(value * 80 + 20).toString(16).padStart(2, '0');
-                        } else {
-                            // Incorrect predictions - use gray scale
-                            return `rgba(150, 150, 150, ${value})`;
-                        }
-                    },
-                    pointRadius: function(context) {
-                        // Make points large enough to create a heatmap effect
-                        const chart = context.chart;
-                        const area = chart.chartArea || {};
-                        const size = Math.min(area.width, area.height) / (labels.length * 2.5);
-                        return size;
-                    },
-                    pointHoverRadius: function(context) {
-                        const chart = context.chart;
-                        const area = chart.chartArea || {};
-                        const size = Math.min(area.width, area.height) / (labels.length * 2);
-                        return size;
-                    },
-                    hoverBackgroundColor: function(context) {
-                        if (!context.raw) return 'rgba(0,0,0,0.2)';
-                        const value = context.raw.value;
-                        const x = context.raw.x;
-                        const y = context.raw.y;
-                        
-                        if (x === y) {
-                            const baseColor = emotionColors[x] || '#3498db';
-                            return baseColor;
-                        } else {
-                            return `rgba(100, 100, 100, ${value + 0.2})`;
-                        }
-                    }
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            title: function() {
-                                return 'Confusion Matrix';
-                            },
-                            label: function(context) {
-                                if (!context.raw) return '';
-                                const x = context.raw.x;
-                                const y = context.raw.y;
-                                const value = context.raw.value;
-                                return [
-                                    `True: ${y}`,
-                                    `Predicted: ${x}`,
-                                    `Accuracy: ${(value * 100).toFixed(1)}%`
-                                ];
-                            }
-                        }
-                    },
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    x: {
-                        type: 'category',
-                        position: 'bottom',
-                        labels: labels,
-                        title: {
-                            display: true,
-                            text: 'Predicted',
-                            font: {
-                                weight: 'bold'
-                            }
-                        },
-                        ticks: {
-                            display: true,
-                            font: {
-                                size: 10
-                            }
-                        },
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        type: 'category',
-                        position: 'left',
-                        labels: labels,
-                        title: {
-                            display: true,
-                            text: 'True',
-                            font: {
-                                weight: 'bold'
-                            }
-                        },
-                        ticks: {
-                            display: true,
-                            font: {
-                                size: 10
-                            }
-                        },
-                        grid: {
-                            display: false
-                        },
-                        offset: true,
-                        reverse: true // Reverse the y-axis to match traditional confusion matrix layout
-                    }
-                },
-                animation: {
-                    duration: 1000,
-                    easing: 'easeOutQuart'
-                }
-            }
-        });
-        
-        // Add a legend for the confusion matrix
-        const legendElement = document.createElement('div');
-        legendElement.className = 'confusion-matrix-legend mt-3';
-        legendElement.innerHTML = `
-            <div class="d-flex justify-content-center align-items-center flex-wrap">
-                <div class="legend-item mx-2 mb-2">
-                    <span class="legend-color" style="background-color: rgba(74, 111, 220, 0.9);"></span>
-                    <span class="legend-text">High Accuracy</span>
-                </div>
-                <div class="legend-item mx-2 mb-2">
-                    <span class="legend-color" style="background-color: rgba(74, 111, 220, 0.5);"></span>
-                    <span class="legend-text">Medium Accuracy</span>
-                </div>
-                <div class="legend-item mx-2 mb-2">
-                    <span class="legend-color" style="background-color: rgba(74, 111, 220, 0.2);"></span>
-                    <span class="legend-text">Low Accuracy</span>
-                </div>
-            </div>
-        `;
-        chartContainer.appendChild(legendElement);
-    }
 
+            function createDatasetDistributionChart() {
+                const ctx = document.getElementById('datasetDistributionChart').getContext('2d');
+                const mockData = {
+                    labels: ['Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise'],
+                    datasets: [{
+                        label: 'Dataset Distribution',
+                        data: [100, 50, 30, 200, 150, 70, 80],
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }]
+                };
+
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: mockData,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Dataset Distribution'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Initialize charts with mock data
+            createConfusionMatrixChart();
+            createDatasetDistributionChart();
     function createDatasetDistributionChart() {
         const ctx = document.getElementById('dataset-distribution-chart').getContext('2d');
         
@@ -733,27 +588,157 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Helper function to get color brightness (for determining text color)
-function getBrightness(color) {
-    // Handle hex format
-    if (color.startsWith('#')) {
-        const hex = color.replace(/^#/, '');
-        const r = parseInt(hex.substr(0, 2), 16);
-        const g = parseInt(hex.substr(2, 2), 16);
-        const b = parseInt(hex.substr(4, 2), 16);
-        return (r * 299 + g * 587 + b * 114) / 1000;
+// Register the matrix controller for the confusion matrix chart
+Chart.register({
+    id: 'matrix',
+    beforeInit: function(chart) {
+        const originalFit = chart.legend.fit;
+        chart.legend.fit = function fit() {
+            originalFit.bind(chart.legend)();
+            this.height += 10;
+        };
+    },
+    defaults: {
+        animations: {
+            numbers: {
+                type: 'number',
+                properties: ['x', 'y', 'width', 'height']
+            }
+        },
+        transitions: {
+            show: {
+                animations: {
+                    numbers: {
+                        from: 0
+                    }
+                }
+            },
+            hide: {
+                animations: {
+                    numbers: {
+                        to: 0
+                    }
+                }
+            }
+        }
+    },
+    controller: {
+        updateElement: function(element, index, properties) {
+            const me = this;
+            const meta = me.getMeta();
+            const dataset = me.getDataset();
+            
+            Object.assign(element, {
+                x: properties.x,
+                y: properties.y,
+                width: properties.width,
+                height: properties.height,
+                options: me.resolveDataElementOptions(index, properties.mode),
+                horizontal: properties.horizontal,
+                base: properties.base,
+                horizontal: properties.horizontal,
+                datasetIndex: me.index,
+                index: index,
+                data: dataset.data[index]
+            });
+        },
+        draw: function(context) {
+            const me = this;
+            const meta = me.getMeta();
+            const elements = meta.data || [];
+            const ctx = context.chart.ctx;
+            
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const data = element.data;
+                
+                ctx.save();
+                
+                // Draw cell background
+                ctx.fillStyle = element.options.backgroundColor;
+                ctx.fillRect(element.x, element.y, element.width, element.height);
+                
+                // Draw cell border
+                ctx.strokeStyle = element.options.borderColor;
+                ctx.lineWidth = element.options.borderWidth;
+                ctx.strokeRect(element.x, element.y, element.width, element.height);
+                
+                // Add text for the value with improved styling
+                const value = (data.v * 100).toFixed(0);
+                const fontSize = Math.min(element.width, element.height) / 2.5;
+                
+                // Determine text color based on background brightness
+                const rgb = hexToRgb(element.options.backgroundColor);
+                const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+                ctx.fillStyle = brightness > 125 ? '#000000' : '#ffffff';
+                
+                ctx.font = `bold ${fontSize}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(
+                    value + '%', 
+                    element.x + element.width / 2, 
+                    element.y + element.height / 2
+                );
+                
+                ctx.restore();
+            }
+        }
+    }
+});
+
+// Helper function to convert hex color to RGB
+function hexToRgb(hex) {
+    // Default to black if hex is not valid
+    if (!hex || typeof hex !== 'string') {
+        return { r: 0, g: 0, b: 0 };
     }
     
     // Handle rgba format
-    if (color.startsWith('rgba')) {
-        const parts = color.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+    if (hex.startsWith('rgba')) {
+        const parts = hex.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
         if (parts) {
-            const r = parseInt(parts[1], 10);
-            const g = parseInt(parts[2], 10);
-            const b = parseInt(parts[3], 10);
-            return (r * 299 + g * 587 + b * 114) / 1000;
+            return {
+                r: parseInt(parts[1], 10),
+                g: parseInt(parts[2], 10),
+                b: parseInt(parts[3], 10)
+            };
         }
+        return { r: 0, g: 0, b: 0 };
     }
     
-    return 0; // Default to dark text
+    // Handle hex format
+    hex = hex.replace(/^#/, '');
+    if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    
+    const bigint = parseInt(hex, 16);
+    return {
+        r: (bigint >> 16) & 255,
+        g: (bigint >> 8) & 255,
+        b: bigint & 255
+    };
 }
+
+// Theme Toggle Functionality
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+}
+
+// Load saved theme or default to light
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+applyTheme(savedTheme);
+
+// Toggle theme on button click
+themeToggleBtn.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme(newTheme);
+});

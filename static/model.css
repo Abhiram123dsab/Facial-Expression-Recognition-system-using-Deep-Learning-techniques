@@ -75,7 +75,7 @@ body {
 /* Model Metrics Cards */
 
 .metric-card {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: var(--background-color-light);
     border-radius: 12px;
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -85,7 +85,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-left: 4px solid #4a6fdc;
+    border-left: 4px solid var(--primary-color-light);
+    border: 1px solid var(--layer-border);
 }
 
 .metric-card:hover {
@@ -169,13 +170,13 @@ body {
 /* Layer Visualization */
 
 .layer-box {
-    border: 2px solid #4a6fdc;
+    border: 2px solid var(--layer-border);
     border-radius: 10px;
     padding: 12px;
     margin: 0 15px;
     min-width: 130px;
     text-align: center;
-    background-color: #f8f9fa;
+    background-color: var(--background-color-light);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     transition: all 0.3s ease;
@@ -248,65 +249,73 @@ body {
     margin-bottom: 0;
 }
 
+
+/* Light Theme Variables */
+
+:root {
+    --background-color-light: #ffffff;
+    --text-color-light: #333333;
+    --primary-color-light: #4a6fdc;
+    --secondary-color-light: #f1f5fd;
+    --alert-success: #d4edda;
+    --alert-success-text: #155724;
+    --alert-info: #d1ecf1;
+    --alert-info-text: #0c5460;
+    --alert-warning: #fff3cd;
+    --alert-warning-text: #856404;
+    --alert-danger: #f8d7da;
+    --alert-danger-text: #721c24;
+}
+
+
+/* Dark Theme Variables */
+
+[data-theme='dark'] {
+    --background-color-light: #333333;
+    --text-color-light: #ffffff;
+    --primary-color-light: #4a6fdc;
+    --secondary-color-light: #4a6fdc;
+    --alert-success: #2d4d32;
+    --alert-success-text: #d4edda;
+    --alert-info: #294b63;
+    --alert-info-text: #d1ecf1;
+    --alert-warning: #66541b;
+    --alert-warning-text: #fff3cd;
+    --alert-danger: #5a1e23;
+    --alert-danger-text: #f8d7da;
+}
+
+
+/* Apply Theme Variables */
+
+body {
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+}
+
 .table th {
-    background-color: #f1f5fd;
-    color: #4a6fdc;
-    font-weight: 600;
-    border-bottom: 2px solid #4a6fdc;
+    background-color: var(--secondary-color-light);
+    color: var(--primary-color-light);
 }
 
 .table td {
     vertical-align: middle;
 }
 
-
-/* Animation for loading */
-
-@keyframes pulse {
-    0% {
-        opacity: 0.6;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0.6;
-    }
-}
-
-
-/* Confusion Matrix Styles */
-
-.confusion-matrix-title {
-    margin-bottom: 15px;
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color-light) 0%, var(--secondary-color-light) 100%);
+    border-bottom: none;
+    padding: 15px 20px;
 }
 
 .confusion-matrix-title p {
-    color: #555;
+    color: var(--text-color-light);
     font-size: 14px;
-}
-
-.confusion-matrix-legend {
-    margin-top: 15px;
-}
-
-.legend-item {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 10px;
-}
-
-.legend-color {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    margin-right: 5px;
-    border-radius: 3px;
 }
 
 .legend-text {
     font-size: 12px;
-    color: #555;
+    color: var(--text-color-light);
 }
 
 

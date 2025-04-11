@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const stopWebcamBtn = document.getElementById('stopWebcam');
     const captureBtn = document.getElementById('captureBtn');
     const webcamResult = document.getElementById('webcamResult');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
 
     // Chart variables
     let emotionChart = null;
@@ -343,3 +344,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
 });
+
+// Theme Toggle Functionality
+let isDarkMode = false;
+
+function toggleTheme() {
+    const body = document.body;
+    isDarkMode = !isDarkMode;
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    if (isDarkMode) {
+        body.classList.add('dark-mode');
+    } else {
+        body.classList.remove('dark-mode');
+    }
+}
+
+// Add event listener for theme toggle
+themeToggleBtn.addEventListener('click', toggleTheme);
+
+// Initialize theme based on user preference
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    isDarkMode = true;
+    document.body.classList.add('dark-mode');
+}
